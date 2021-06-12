@@ -15,7 +15,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    /*public function behaviors()
     {
         return [
             'access' => [
@@ -39,19 +39,19 @@ class SiteController extends Controller
                 ],
             ],
         ];
-    }
+    }*/
 
     /**
      * {@inheritdoc}
      */
-    public function actions()
+    /*public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
         ];
-    }
+    }*/
 
     /**
      * Displays homepage.
@@ -60,7 +60,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        session_start();
+        if (!isset($_SESSION['count'])) {
+            $_SESSION['count'] = 0;
+        } else {
+            $_SESSION['count']++;
+        }
+
+        echo json_encode($_COOKIE);exit;
+        $res = Yii::$app->redis->set('advertiserid','hello yii2-reids');
+        echo $res;exit;
+        //return $this->render('index');
     }
 
     /**
